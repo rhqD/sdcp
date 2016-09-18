@@ -1,0 +1,18 @@
+package implemention;
+
+import beans.pack;
+import interfaces.procedure;
+
+public class procImplemention implements procedure{
+	
+	public procImplemention(){
+		
+	}
+
+	@Override
+	public void process(Socket client) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

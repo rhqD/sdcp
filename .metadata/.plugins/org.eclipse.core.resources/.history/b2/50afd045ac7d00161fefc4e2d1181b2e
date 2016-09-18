@@ -1,0 +1,7 @@
+package interfaces;
+
+import beans.pack;
+
+public interface procedure {
+    public void process(pack client);
+}

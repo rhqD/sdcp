@@ -1,0 +1,10 @@
+package manager;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import beans.pack;
+
+public class manager {
+    private List<pack> waitingRoom = new ArrayList<pack>();
+}

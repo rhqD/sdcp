@@ -1,0 +1,10 @@
+package server;
+
+import java.net.ServerSocket;
+import config.config;
+
+public class mainServer {
+    public static void main(String args[]) {
+    	ServerSocket server = new ServerSocket(config.port);
+    }
+}

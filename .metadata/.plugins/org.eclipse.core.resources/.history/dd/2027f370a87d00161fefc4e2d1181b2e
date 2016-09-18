@@ -1,0 +1,6 @@
+package beans;
+
+public class worker {
+    public Object holder = new Object();
+    
+}

@@ -1,0 +1,48 @@
+package system;
+
+import java.io.IOException;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Vector;
+
+import beans.pack;
+import beans.worker;
+import config.config;
+import implemention.procImplemention;
+
+public class system {
+    public static Queue<worker> restRoom = new LinkedList<worker>();
+    public static Queue<worker> workShop = new LinkedList<worker>();
+    public static Queue<Socket> waitingRoom = new LinkedList<Socket>();
+    public static void serve(Socket client){
+    	synchronized(restRoom){
+    		if (restRoom.isEmpty()) {
+    			synchronized(workShop){
+    				if (workShop.size() < config.maxWorkers ){
+    					workShop.add(new worker(new procImplemention(), client));
+    				} else {
+    					synchronized(waitingRoom){
+    						if (waitingRoom.size() > config.maxPacksInWait){
+    							try {
+									client.close();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+    						} else {
+    							waitingRoom.add(client);
+    						}
+    					}
+    				}
+    			}
+    		} else {
+    			worker him = restRoom.poll();
+    			workShop.add(him);    			
+    			him.holder.notify();
+    		}
+    	}
+    }
+}

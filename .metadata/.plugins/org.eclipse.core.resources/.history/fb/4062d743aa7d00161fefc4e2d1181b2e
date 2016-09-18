@@ -1,0 +1,32 @@
+package system;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Vector;
+
+import beans.pack;
+import beans.worker;
+import config.config;
+
+public class system {
+    public static Queue<worker> restRoom = new LinkedList<worker>();
+    public static Queue<worker> workShop = new LinkedList<worker>();
+    public static Queue<pack> waitingRoom = new LinkedList<pack>();
+    public static void serve(pack client){
+    	synchronized(restRoom){
+    		if (restRoom.isEmpty()) {
+    			synchronized(workShop){
+    				if (workShop.size() < config.maxWorkers ){
+    					
+    				}
+    			}
+    		} else {
+    			worker him = restRoom.poll();
+    			workShop.add(him);    			
+    			him.holder.notify();
+    		}
+    	}
+    }
+}
