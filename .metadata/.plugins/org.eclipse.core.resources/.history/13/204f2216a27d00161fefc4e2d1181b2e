@@ -1,8 +1,0 @@
-package config;
-
-public class config {
-    public static int maxWorker;
-    public static int maxpacks;
-    public static int port;
-    public static int waitTime;
-}

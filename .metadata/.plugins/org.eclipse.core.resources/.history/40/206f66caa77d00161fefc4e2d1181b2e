@@ -1,5 +1,0 @@
-package system;
-
-public class system {
-    public static List<worker> restRoom = new ArrayList<worker>();
-}
