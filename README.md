@@ -9,7 +9,7 @@
 - 4.防止过多线程在线程池中等待过长时间。
 
 ##centralSystem 部分代码
-~public class centralSystem {
+`public class centralSystem {
     public static Queue<worker> restRoom = new LinkedList<worker>();
     public static Queue<worker> workShop = new LinkedList<worker>();
     public static Queue<Socket> waitingRoom = new LinkedList<Socket>();
@@ -41,4 +41,4 @@
     		}
     	}
     }
-}~
+}`
