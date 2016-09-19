@@ -1,7 +1,4 @@
 .metadata/*
 .recommenders/*
-
-.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
-*.xmi
-.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
+test/*
 sdcp/log.txt
