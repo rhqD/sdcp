@@ -26,7 +26,7 @@ public class worker implements Runnable{
 				if (client == null){
 					synchronized(holder){
 						restTime = new Date();
-						logger.info("进入restRoom");
+						//logger.info("进入restRoom");
 						centralSystem.rest(this);
 						holder.wait();
 					}				
@@ -34,7 +34,7 @@ public class worker implements Runnable{
 					this.proc.process(client);
                     client = centralSystem.fetchOne();	
                     if (client != null){
-                    	logger.info("领取新任务");
+                    	//logger.info("领取新任务");
                     }                
 				}				
 			}
