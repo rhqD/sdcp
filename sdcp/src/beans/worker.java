@@ -3,6 +3,7 @@ package beans;
 import java.net.Socket;
 
 import interfaces.procedure;
+import centralSystem.centralSystem;
 
 public class worker implements Runnable{
     public Object holder = new Object();
@@ -16,7 +17,25 @@ public class worker implements Runnable{
     
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
+		try {
+			while(true){
+				if (client == null){
+					synchronized(holder){
+						holder.wait();
+					}				
+				} else {
+					this.proc.process(client);
+                    client = centralSystem.fetchOne();				
+				}				
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void setClient(Socket newClient){
+		this.client = newClient;
 	}
 }

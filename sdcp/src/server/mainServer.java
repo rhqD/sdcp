@@ -9,6 +9,7 @@ public class mainServer {
     public static void main(String args[]) {
     	try {
 			ServerSocket server = new ServerSocket(config.port);
+			System.out.println("服务器启动");
 			while(true){
 				centralSystem.serve(server.accept());
 			}
