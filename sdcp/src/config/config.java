@@ -7,7 +7,7 @@ public class config {
     public static int port = 5428;//用户服务端口
     public static int devicePort = 5427;//设备和服务器建立长连接的TCP端口
     public static int maxDevices = 100;//最多有多少台设备与服务器建立长连接
-    public static int waitTime = 10;//线程在线程池中的最长等待时间
+    public static int waitTime = 2;//线程在线程池中的最长等待时间
     public static int supervisorCheckInterval = 1;//监督现成每隔多长时间进行一次检查
     public static void init(){
     	//读取配置文件

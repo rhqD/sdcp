@@ -15,6 +15,7 @@ public class procImplemention implements procedure{
 	public void process(Socket client) {
 		// TODO Auto-generated method stub
 		try {
+			System.out.println("开始服务");
 			Thread.sleep(1000);
 			client.close();
 		} catch (InterruptedException e) {

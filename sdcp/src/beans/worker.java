@@ -31,7 +31,10 @@ public class worker implements Runnable{
 					}				
 				} else {
 					this.proc.process(client);
-                    client = centralSystem.fetchOne();				
+                    client = centralSystem.fetchOne();	
+                    if (client != null){
+                    	System.out.println("领取新任务");
+                    }                
 				}				
 			}
 		} catch (InterruptedException e) {
