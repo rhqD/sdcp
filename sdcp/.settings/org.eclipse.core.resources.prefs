@@ -1,3 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/beans/worker.java=UTF-8
 encoding//src/centralSystem/centralSystem.java=UTF-8
+encoding//src/config/config.java=UTF-8
 encoding//src/server/mainServer.java=UTF-8
+encoding//src/supervisor/supervisor.java=UTF-8

@@ -1,6 +1,7 @@
 package beans;
 
 import java.net.Socket;
+import java.util.Date;
 
 import interfaces.procedure;
 import centralSystem.centralSystem;
@@ -9,6 +10,7 @@ public class worker implements Runnable{
     public Object holder = new Object();
     private Socket client;
     private procedure proc;
+    public Date restTime;
     public worker(procedure p, Socket s){
     	this.proc = p;
     	this.client = s;
@@ -22,6 +24,8 @@ public class worker implements Runnable{
 			while(true){
 				if (client == null){
 					synchronized(holder){
+						restTime = new Date();
+						System.out.println("进入restRoom");
 						centralSystem.rest(this);
 						holder.wait();
 					}				

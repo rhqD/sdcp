@@ -3,6 +3,8 @@ package centralSystem;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -28,7 +30,7 @@ public class centralSystem {
     				} else {//当前工作线程超过预设阀值
     					System.out.println("当前工作线程超过预设阀值");
     					synchronized(waitingRoom){
-    						if (waitingRoom.size() > config.maxPacksInWait){//当前等待客户数量超过预设阀值，拒绝服务
+    						if (waitingRoom.size() > config.maxClientsInWait){//当前等待客户数量超过预设阀值，拒绝服务
     							System.out.println("当前等待客户数量超过预设阀值，拒绝服务");
     							try {
 									client.close();//返回点
@@ -59,5 +61,18 @@ public class centralSystem {
     }
     public static void rest(worker him){
     	restRoom.add(him);
+    }
+    public static void disposeRester(){
+    	System.out.println("开始垃圾回收");
+    	Date now = new Date();
+    	Iterator it = restRoom.iterator();
+    	while(it.hasNext()){
+    		worker him = (worker)it.next();
+    		if (now.getTime() - him.restTime.getTime() > config.waitTime * 1000){
+    			System.out.println("超时回收");
+    			it.remove();
+    		}
+    	}
+        
     }
 }

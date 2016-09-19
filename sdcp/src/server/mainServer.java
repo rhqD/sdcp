@@ -3,6 +3,7 @@ package server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import config.config;
+import supervisor.supervisor;
 import centralSystem.centralSystem;
 
 public class mainServer {
@@ -10,6 +11,7 @@ public class mainServer {
     	try {
 			ServerSocket server = new ServerSocket(config.port);
 			System.out.println("服务器启动");
+			new supervisor();
 			while(true){
 				centralSystem.serve(server.accept());
 			}
