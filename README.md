@@ -12,9 +12,9 @@
 ```java
     public class centralSystem {
         public static Queue<worker> restRoom = new LinkedList<worker>();
-	public static Queue<worker> workShop = new LinkedList<worker>();
-	public static Queue<Socket> waitingRoom = new LinkedList<Socket>();
-	public static void serve(Socket client){
+        public static Queue<worker> workShop = new LinkedList<worker>();
+        public static Queue<Socket> waitingRoom = new LinkedList<Socket>();
+        public static void serve(Socket client){
 	    synchronized(restRoom){
 	        if (restRoom.isEmpty()) {//没有空闲线程，进行后续处理
 	    	    synchronized(workShop){
