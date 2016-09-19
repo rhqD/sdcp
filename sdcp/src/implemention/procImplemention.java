@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 import interfaces.procedure;
+import logger.logger;
 
 public class procImplemention implements procedure{
 	
@@ -15,7 +16,6 @@ public class procImplemention implements procedure{
 	public void process(Socket client) {
 		// TODO Auto-generated method stub
 		try {
-			System.out.println("开始服务");
 			Thread.sleep(1000);
 			client.close();
 		} catch (InterruptedException e) {

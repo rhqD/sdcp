@@ -4,6 +4,7 @@ import java.net.Socket;
 import java.util.Date;
 
 import interfaces.procedure;
+import logger.logger;
 import centralSystem.centralSystem;
 
 public class worker implements Runnable{
@@ -25,7 +26,6 @@ public class worker implements Runnable{
 				if (client == null){
 					synchronized(holder){
 						restTime = new Date();
-						System.out.println("进入restRoom");
 						centralSystem.rest(this);
 						holder.wait();
 					}				
@@ -33,7 +33,6 @@ public class worker implements Runnable{
 					this.proc.process(client);
                     client = centralSystem.fetchOne();	
                     if (client != null){
-                    	System.out.println("领取新任务");
                     }                
 				}				
 			}
