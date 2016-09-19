@@ -64,7 +64,6 @@ public class centralSystem {
     	restRoom.add(him);
     }
     public static void disposeRester(){
-    	System.out.println("开始垃圾回收");
     	Date now = new Date();
     	Iterator it = restRoom.iterator();
     	while(it.hasNext()){
