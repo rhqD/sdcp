@@ -22,6 +22,7 @@ public class worker implements Runnable{
 			while(true){
 				if (client == null){
 					synchronized(holder){
+						centralSystem.rest(this);
 						holder.wait();
 					}				
 				} else {

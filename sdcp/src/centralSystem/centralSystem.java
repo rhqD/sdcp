@@ -13,9 +13,9 @@ import config.config;
 import implemention.procImplemention;
 
 public class centralSystem {
-    public static Queue<worker> restRoom = new LinkedList<worker>();
-    public static Queue<worker> workShop = new LinkedList<worker>();
-    public static Queue<Socket> waitingRoom = new LinkedList<Socket>();
+    private static Queue<worker> restRoom = new LinkedList<worker>();
+    private static Queue<worker> workShop = new LinkedList<worker>();
+    private static Queue<Socket> waitingRoom = new LinkedList<Socket>();
     public static void serve(Socket client){
     	System.out.println("客户进入服务流程");
     	synchronized(restRoom){
@@ -56,5 +56,8 @@ public class centralSystem {
     }
     public static Socket fetchOne(){
     	return waitingRoom.poll();
+    }
+    public static void rest(worker him){
+    	restRoom.add(him);
     }
 }
