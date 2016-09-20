@@ -1,5 +1,7 @@
 package visualDataSource;
 
+import java.io.IOException;
+
 import centralSystem.centralSystem;
 
 public class eChartHelper implements Runnable{
@@ -15,6 +17,9 @@ public class eChartHelper implements Runnable{
 				Thread.sleep(10000);
 				centralSystem.writeEchartLogger();
 			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
