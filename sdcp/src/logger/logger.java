@@ -19,16 +19,19 @@ public class logger {
     public static void info(String mes){
     	if (writer != null){
     		writer.println("[INFO] "+ mes);
+    		writer.flush();
     	}
     }
     public static void error(String mes){
     	if (writer != null){
     		writer.println("[ERROR] "+ mes);
+    		writer.flush();
     	}
     }
     public static void warn(String mes){
     	if (writer != null){
     		writer.println("[WARN] "+ mes);
+    		writer.flush();
     	}
     }
 }
