@@ -2,3 +2,4 @@
 .recommenders/*
 test/*
 sdcp/log.txt
+sdcp/data.txt

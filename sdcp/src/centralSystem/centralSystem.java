@@ -15,6 +15,7 @@ import beans.worker;
 import config.config;
 import implemention.procImplemention;
 import logger.logger;
+import visualDataSource.eChartDataLogger;
 
 public class centralSystem {
     private static Queue<worker> restRoom = new ConcurrentLinkedQueue<worker>();
@@ -62,6 +63,9 @@ public class centralSystem {
     public static void rest(worker him){
     	workShop.remove(him);
     	restRoom.add(him);
+    }
+    public static void writeEchartLogger(){
+    	eChartDataLogger.log(workShop.size(), restRoom.size(), waitingRoom.size());
     }
     public static void disposeRester(){
     	Date now = new Date();
