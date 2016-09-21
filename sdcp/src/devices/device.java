@@ -1,18 +1,28 @@
 package devices;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.Socket;
 
-public class device implements Runnable{
+public class device{
 
 	private Socket dev;
+	private BufferedReader ins;
+	private OutputStream ous;
 	public device(Socket s){
-		this.dev = s;
-		new Thread(this).start();
+		dev = s;	
+		try {
+			dev.setReceiveBufferSize(4096);
+			dev.setSendBufferSize(4096);
+			dev.setSoTimeout(2000);
+			ins = new BufferedReader(new InputStreamReader(s.getInputStream()));
+			ous = s.getOutputStream();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		//为了将心跳包数据和用户数据区分开，在发送时，对socket的inputStream进行互斥访问
-	}
-    
 }
