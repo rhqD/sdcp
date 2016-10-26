@@ -7,13 +7,17 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class device{
+import logger.logger;
+
+public class device implements Runnable{
 
 	private Socket dev;
 	private BufferedReader ins;
 	private OutputStream ous;
+	private int minutes = 0;
 	public device(Socket s){
 		dev = s;	
+		System.out.println("come on");
 		try {
 			dev.setReceiveBufferSize(4096);
 			dev.setSendBufferSize(4096);
@@ -24,5 +28,25 @@ public class device{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		try{
+			while(true){
+				synchronized(this.ous){
+					this.minutes++;
+					this.ous.write(20);
+					this.ous.flush();
+				}
+				Thread.sleep(60000);
+			}
+		} catch (IOException e){
+			logger.error("connection with device has been shutdown and it lasts " + this.minutes + " minutes");
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
