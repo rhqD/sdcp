@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class device{
+public class device implements Runnable{
 
 	private Socket dev;
 	private BufferedReader ins;
@@ -24,5 +24,10 @@ public class device{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 }
