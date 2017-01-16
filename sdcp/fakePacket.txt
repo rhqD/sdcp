@@ -1,0 +1,11 @@
+SDCP/1.0 C
+user:
+server:
+device: yardLightA
+divider: asertybw
+content:
+/-----asertybw-----/
+hello world
+this is just a begining
+ohaha
+/-----asertybw-----/
