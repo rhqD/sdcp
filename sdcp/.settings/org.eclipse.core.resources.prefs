@@ -3,6 +3,7 @@ encoding//src/beans/worker.java=UTF-8
 encoding//src/centralSystem/centralSystem.java=UTF-8
 encoding//src/config/config.java=UTF-8
 encoding//src/devices/device.java=UTF-8
+encoding//src/devices/deviceManager.java=UTF-8
 encoding//src/implemention/procImplemention.java=UTF-8
 encoding//src/logger/logger.java=UTF-8
 encoding//src/server/Server.java=UTF-8
