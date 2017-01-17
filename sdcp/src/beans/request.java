@@ -2,6 +2,8 @@ package beans;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,12 +29,16 @@ public class request {
 		e.printStackTrace();
 	}
   }
+ 
+  public request(Socket s) throws IOException{
+	  this(new BufferedReader(new InputStreamReader(s.getInputStream())));
+  }
   
   public void init(BufferedReader ins) throws IOException{
 	  Pattern p1 = Pattern.compile("^SDCP/(\\d.\\d) ([ABCDE]{1})$");
 	  Pattern p2 = Pattern.compile("^user:([0-9a-zA-Z]{3,20}){0,1} {0,1}([0-9a-zA-Z]{6,12}){0,1}$");
 	  Pattern p3 = Pattern.compile("^server: {0,1}(.*)$");
-	  Pattern p4 = Pattern.compile("^device: {0,1}([0-9a-zA-Z]{6,20}){0,1}$");
+	  Pattern p4 = Pattern.compile("^device: {0,1}([0-9a-zA-Z]{6,20}){0,1} {0,1}([0-9a-zA-Z]{6,12}){0,1}$");
 	  Pattern p5 = Pattern.compile("^divider: {0,1}([a-zA-Z]{8,8}){0,1}$");
 	  Matcher matcher;
 	  String line = ins.readLine();
@@ -53,6 +59,7 @@ public class request {
 				  matcher = p4.matcher(line);
 				  if (matcher.matches()){
 					  this.deviceName = matcher.group(1);
+					  this.devicePassword = matcher.group(2);
 					  line = ins.readLine();
 					  matcher = p5.matcher(line);
 					  if (matcher.matches()){

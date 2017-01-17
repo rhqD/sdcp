@@ -17,6 +17,12 @@ public class device implements Runnable{
 	private OutputStream ous;
 	private boolean inited = false;
 	private int minutes = 0;
+	private String name;
+	
+	public boolean isInited(){
+		return this.inited;
+	}
+	
 	public device(Socket s){
 		dev = s;	
 		System.out.println("come on");
@@ -26,6 +32,7 @@ public class device implements Runnable{
 			dev.setSoTimeout(1000);
 			ins = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			ous = s.getOutputStream();
+			new Thread(this).start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -35,10 +42,28 @@ public class device implements Runnable{
 	private void init() throws IOException{
 	  request req = new request(this.ins);
 	  initWithRequest(req);
+	  if (!this.inited){
+		  this.dev.close();
+		  this.ins = null;
+		  this.ous = null;
+	  }
 	}
 	
 	private void initWithRequest(request req){
-		
+		if(req.type.equals('C')){
+			return;
+		}
+		if(req.deviceName == null){
+			return;
+		}
+		if(req.devicePassword == null){
+			return;
+		}
+		if (!deviceManager.checkPassword(req.deviceName, req.devicePassword)){
+			return;
+		}
+		this.name = req.deviceName;
+		this.inited = true;
 	}
 	
 	@Override

@@ -1,7 +1,7 @@
 SDCP/1.0 C
 user:
 server:
-device: yardLightA
+device: lampA1 19940227
 divider: asertybw
 content:
 /-----asertybw-----/

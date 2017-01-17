@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 import beans.request;
 import config.config;
 
-public class deviceManager {
+public class deviceManager implements Runnable{
 	public static long deviceCount = 0;
     public static List<device> devs = new LinkedList<device>();
     public static void start(){
@@ -26,8 +26,11 @@ public class deviceManager {
 			fs.close();
 			/*test code ends*/
 			while(true){
-	    		if (deviceCount < config.maxDevices){ 		    
-	    			devs.add(new device(devServer.accept()));
+	    		if (deviceCount < config.maxDevices){
+	    			device d = new device(devServer.accept());
+	    			if (d.isInited()){
+	    				devs.add(d);	
+	    			}    			
 	    		}
 	    	}
 		} catch (IOException e) {
@@ -35,5 +38,22 @@ public class deviceManager {
 			e.printStackTrace();
 		}   	
     }
+    
+    public static boolean checkPassword(String name, String password){
+    	if (name.equals("lampA1") && password.equals("19940227")){
+    		return true;
+    	}
+    	return false;
+    }
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while(true){
+			for(int i = 0; i < devs.size();i++){
+				//暂时采用单线程同步唤醒的方案
+			}
+		}
+	}
     
 }
