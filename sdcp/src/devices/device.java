@@ -31,10 +31,7 @@ public class device implements Runnable{
 			e.printStackTrace();
 		}	
 	}
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-	//进行device的初始化
+
 	private void init() throws IOException{
 	  request req = new request(this.ins);
 	  initWithRequest(req);
