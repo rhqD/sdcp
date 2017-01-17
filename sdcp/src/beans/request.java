@@ -1,12 +1,19 @@
 package beans;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousSocketChannel;
+import java.nio.channels.CompletionHandler;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import devices.device;
+import devices.deviceManager;
 
 public class request {
   public String version;
@@ -19,6 +26,7 @@ public class request {
   public String content;
   public String divider;
   public String server;
+  private boolean done = false;
   public static String[] suportedType = {"A", "B", "C", "D", "E"};
   
   public request(BufferedReader ins){
@@ -32,6 +40,37 @@ public class request {
  
   public request(Socket s) throws IOException{
 	  this(new BufferedReader(new InputStreamReader(s.getInputStream())));
+  }
+  //当传入参数是AsynchronousSocketChannel时默认是要初始化设备，这样设计很不合理，有待重新设计
+  public request(AsynchronousSocketChannel s, device d){
+	  final ByteBuffer buffer = ByteBuffer.allocate(2048);
+	  String packet = "";
+	  s.read(buffer, this, new CompletionHandler<Integer, request>() { 
+          @Override  
+          public void completed(Integer result, request attachment) { 
+             if(result > 0){
+            	 buffer.flip();
+            	 try {
+            		ByteArrayInputStream bais = new ByteArrayInputStream(buffer.array());
+					attachment.init(new BufferedReader(new InputStreamReader(bais)));
+					device dev = device.processDeviceWithRequest(d, attachment);
+					if (dev.isInited()){
+						deviceManager.devs.add(dev);
+					} else {
+						s.close();
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+             }
+          } 
+
+		@Override
+		public void failed(Throwable arg0, request arg1) {
+			// TODO Auto-generated method stub
+		}
+      });
   }
   
   public void init(BufferedReader ins) throws IOException{

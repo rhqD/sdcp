@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import config.config;
 import devices.deviceManager;
+import devices.waker;
 import interfaces.procedure;
 import interfaces.procedureFactory;
 import logger.logger;
@@ -21,12 +22,9 @@ public class Server{
     public void start() {
     	config.init(configFile);
     	try {
-			ServerSocket server = new ServerSocket(config.port);
-			new Thread(new Runnable(){
-				public void run(){
-					deviceManager.start();
-				}				
-			}).start();
+			ServerSocket server = new ServerSocket(config.port);		
+			deviceManager dm = new deviceManager();
+			waker wk = new waker();
 			System.out.println("服务器启动");
 			System.out.println("设备服务器启动");
 			logger.info("服务器启动");
