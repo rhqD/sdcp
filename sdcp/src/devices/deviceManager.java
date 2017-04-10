@@ -39,32 +39,7 @@ public class deviceManager implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		try {
-    		AsynchronousServerSocketChannel devServer = AsynchronousServerSocketChannel.open().bind(new InetSocketAddress(config.devicePort));
-    		/*test code starts*/   		
-//			FileInputStream fs = new FileInputStream("fakePacket.txt");
-//			BufferedReader ins = new BufferedReader(new InputStreamReader(fs));
-//			request req = new request(ins);
-//			fs.close();
-			/*test code ends*/
-			devServer.accept(null, new CompletionHandler<AsynchronousSocketChannel, Object>() { 
-	  
-	            @Override  
-	            public void completed(AsynchronousSocketChannel result, Object attachment) {            	
-	                new device(result);	               
-	                devServer.accept(null, this);
-	            }  
-	  
-	            @Override  
-	            public void failed(Throwable exc, Object attachment) {  
-	                System.out.print("Server failed...." + exc.getCause());  
-	            }  
-	        }); 
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}   	
+		
 	}
     
 }

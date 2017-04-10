@@ -23,8 +23,8 @@ public class Server{
     	config.init(configFile);
     	try {
 			ServerSocket server = new ServerSocket(config.port);		
-			deviceManager dm = new deviceManager();
-			waker wk = new waker();
+//			deviceManager dm = new deviceManager();
+//			waker wk = new waker();
 			System.out.println("服务器启动");
 			System.out.println("设备服务器启动");
 			logger.info("服务器启动");

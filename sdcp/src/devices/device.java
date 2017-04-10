@@ -13,7 +13,7 @@ import java.net.StandardSocketOptions;
 import beans.request;
 import logger.logger;
 import java.util.regex.*;
-public class device implements Runnable{
+public class device{
 
 	private AsynchronousSocketChannel ASC;
 	private boolean inited = false;
@@ -29,18 +29,6 @@ public class device implements Runnable{
 		
 	}
 	
-	public device(AsynchronousSocketChannel s){
-		this.ASC = s;
-		try {
-			this.ASC.setOption(StandardSocketOptions.SO_RCVBUF, 4096);
-			this.ASC.setOption(StandardSocketOptions.SO_SNDBUF, 4096);
-			new Thread(this).start();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-	}
-	
 	public boolean isInited(){
 		return this.inited;
 	}
@@ -48,72 +36,5 @@ public class device implements Runnable{
 	public String getName(){
 		return this.name;
 	}
-	
-	public void wakeUp(){
-		this.state = device.WAKING_UP;
-		this.ASC.write(ByteBuffer.wrap("wake up\n".getBytes()), this, new CompletionHandler<Integer, device>() { 
-			  
-            @Override  
-            public void completed(Integer result, device attachment) {
-            	attachment.state = device.WAKED;         
-            }  
-  
-			@Override
-			public void failed(Throwable exc, device attachment) {
-				// TODO Auto-generated method stub
-				attachment.state = device.DEAD;
-			}  
-        });
-	}
-	
-	public static device processDeviceWithRequest(device d, request req){
-		if(req.type.equals('C')){
-			return d;
-		}
-		if(req.deviceName == null){
-			return d;
-		}
-		if(req.devicePassword == null){
-			return d;
-		}
-		if (!deviceManager.checkPassword(req.deviceName, req.devicePassword)){
-			return d;
-		}
-		d.name = req.deviceName;
-		d.inited = true;
-		return d;
-	}
-	
-	private void initWithRequest(request req){
-		if(req.type.equals('C')){
-			return;
-		}
-		if(req.deviceName == null){
-			return;
-		}
-		if(req.devicePassword == null){
-			return;
-		}
-		if (!deviceManager.checkPassword(req.deviceName, req.devicePassword)){
-			return;
-		}
-		this.name = req.deviceName;
-		this.inited = true;	
-	}
-	
-	private void init() throws IOException{		
-		  request req = new request(this.ASC, this);
-	}
-	
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		//device 的初始化工作放在单独的一个线程中完成，考虑采用新的形式，类似于Promise的实现
-		try {
-			this.init();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 }

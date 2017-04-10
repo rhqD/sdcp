@@ -110,9 +110,9 @@ public class request {
 							  line = ins.readLine();
 							  Pattern p6 = Pattern.compile("^content: {0,1}");
 							  matcher = p6.matcher(line);
-							  if (matcher.matches() && ins.readLine().equals("/-----" + this.divider + "-----/")){
+							  if (matcher.matches()){
 								  line = ins.readLine();
-								  while(!line.equals("/-----" + this.divider + "-----/")){									  
+								  while(line != null && !line.equals("/-----" + this.divider + "-----/")){									  
 									  if (this.content == null){
 										  this.content = line;
 									  } else {
